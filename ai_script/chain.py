@@ -19,15 +19,7 @@ def chain_prompt(prompt,data,length:int, model:str):
 
   
 def chain_conversation(model:str, prompt, memory):
-    # client = Groq()
-    # completion = client.chat.completions.create(
-    #     model=model,
-    #     messages=data,
-    #     temperature=1,
-    #     max_tokens=length,
-    #     top_p=1,
-    #     stop=None,
-    # )
+  
     groq_chat = ChatGroq(
             groq_api_key=settings.groq_api_key, 
             model_name=model
