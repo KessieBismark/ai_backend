@@ -1,0 +1,7 @@
+ujson
+fastapi
+fastapi-cli
+pydantic-settings
+groq
+langchain
+langchain-groq
