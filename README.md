@@ -181,6 +181,13 @@ The API will be available at `http://127.0.0.1:8000`. Use tools like Postman or 
 
 Contributions are welcome! Feel free to fork this repository and submit a pull request.
 
+
+## Related Application
+
+I have built an application that communicates with this backend using Flutter. You can find it at this [GitHub link](https://github.com/your-flutter-app-link).
+
+
+
 ## Acknowledgements
 
 - Built with [FastAPI](https://fastapi.tiangolo.com/)
