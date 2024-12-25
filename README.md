@@ -184,7 +184,7 @@ Contributions are welcome! Feel free to fork this repository and submit a pull r
 
 ## Related Application
 
-I have built an application that communicates with this backend using Flutter. You can find it at this [GitHub link](https://github.com/your-flutter-app-link).
+I have built an application that communicates with this backend using Flutter. You can find it at this [GitHub link](https://github.com/KessieBismark/lernen.git).
 
 
 
