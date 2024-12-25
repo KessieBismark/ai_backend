@@ -1,35 +1,30 @@
-German Language Learning AI API
+# German Language Learning AI API
 
-Welcome to the German Language Learning AI API! This API is designed to assist users in learning German through interactive and personalized features powered by FastAPI and Groq AI. It offers tools for verb conjugation, interview preparation, and general knowledge exploration, all tailored to enhance your German language skills.
+Welcome to the **German Language Learning AI API**! This API is designed to assist users in learning German through interactive and personalized features powered by **FastAPI** and **Groq AI**. It offers tools for verb conjugation, interview preparation, model exploration, and general knowledge exploration, all tailored to enhance your German language skills.
 
-Features
+## Features
 
-1. Verb Conjugation Assistant
+### 1. Verb Conjugation Assistant
 
-The Verb Section allows users to input a German verb or word and receive detailed conjugation information along with usage examples.
+The **Verb Section** allows users to input a German verb or word and receive detailed conjugation information along with usage examples.
 
-Input: A German verb (e.g., "laufen").
+- **Input**: A German verb (e.g., "laufen").
+- **Output**:
+  - Present tense
+  - Past tense
+  - Future tense
+  - Past participle
+  - Example sentences for each tense
 
-Output:
-
-Present tense
-
-Past tense
-
-Future tense
-
-Past participle
-
-Example sentences for each tense
-
-Example Request:
-
+#### Example Request:
+```json
 {
   "verb": "laufen"
 }
+```
 
-Example Response:
-
+#### Example Response:
+```json
 {
   "present": "ich laufe, du läufst, er/sie/es läuft, wir laufen, ihr lauft, sie laufen",
   "past": "ich lief, du liefst, er/sie/es lief, wir liefen, ihr lieft, sie liefen",
@@ -41,23 +36,24 @@ Example Response:
     "future": "Morgen werde ich im Wald laufen."
   }
 }
+```
 
-2; Interview Assistant
+### 2. Interview Assistant
 
-The Interview Assistant simulates realistic German-language interview conversations to help users prepare for job interviews.
+The **Interview Assistant** simulates realistic German-language interview conversations to help users prepare for job interviews.
 
-Input: An interview prompt or topic (e.g., "Tell me about yourself").
+- **Input**: An interview prompt or topic (e.g., "Tell me about yourself").
+- **Output**: A dialogue between an interviewer and interviewee in German.
 
-Output: A dialogue between an interviewer and interviewee in German.
-
-Example Request:
-
+#### Example Request:
+```json
 {
   "prompt": "Tell me about yourself"
 }
+```
 
-Example Response:
-
+#### Example Response:
+```json
 {
   "conversation": [
     { "interviewer": "Können Sie mir etwas über sich erzählen?" },
@@ -66,108 +62,134 @@ Example Response:
     { "interviewee": "Ich bin sehr detailorientiert und arbeite gut im Team." }
   ]
 }
+```
 
-3. General Search
+### 3. Model Exploration
 
-The General Search feature provides answers to a wide range of queries, considering context from previous conversations to provide more accurate and tailored responses.
+The **Model Section** allows users to explore and query the models offered by Groq. Users can retrieve model IDs and use them for further interactions in the **General Search** feature.
 
-Input: Any question or topic in German or English.
+- **Input**: A query to list available models.
+- **Output**: A list of models with their corresponding IDs.
 
-Output: A response based on the query, with contextual understanding from prior interactions.
+#### Example Request:
+```json
+{
+  "action": "list_models"
+}
+```
 
-Example Request:
+#### Example Response:
+```json
+{
+  "models": [
+    { "id": "model-123", "description": "German language model v1" },
+    { "id": "model-456", "description": "Advanced German conversational model" }
+  ]
+}
+```
 
+### 4. General Search
+
+The **General Search** feature provides answers to a wide range of queries, considering context from previous conversations to provide more accurate and tailored responses.
+
+- **Input**: Any question or topic in German or English.
+- **Output**: A response based on the query, with contextual understanding from prior interactions.
+
+#### Example Request:
+```json
 {
   "query": "What is the capital of Germany?"
 }
+```
 
-Example Response:
-
+#### Example Response:
+```json
 {
   "answer": "Die Hauptstadt von Deutschland ist Berlin.",
   "context": "Based on your previous interest in German geography, here are some additional facts about Berlin."
 }
+```
 
-Installation
+## Installation
 
-Prerequisites
+### Prerequisites
 
-Python 3.8+
+- Python 3.8+
+- FastAPI
+- Groq AI library
 
-FastAPI
+### Steps
 
-Groq AI library
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/KessieBismark/ai_backend.git
+   cd <your application folder>
+   ```
+2. Create and activate a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate # On Windows, use `venv\Scripts\activate`
+   ```
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Create a `.env` file in the root directory with the following content:
+   ```env
+   GROQ_API_KEY=<your-groq-api-key>
+   ```
+5. Run the application:
+   ```bash
+   uvicorn main:app --reload
+   ```
 
-Steps
+### Accessing the API
 
-Clone this repository:
+The API will be available at `http://127.0.0.1:8000`. Use tools like Postman or cURL to test endpoints.
 
-git clone https://github.com/KessieBismark/ai_backend.git
-cd german-ai-api
+## Endpoints
 
-Create and activate a virtual environment:
+### `/conjugate`
 
-python -m venv venv
-source venv/bin/activate # On Windows, use `venv\Scripts\activate`
+- **Method**: POST
+- **Description**: Provides verb conjugations and examples.
+- **Input**: `{ "verb": "<German verb>" }`
+- **Output**: Detailed conjugations and usage examples.
 
-Install dependencies:
+### `/interview`
 
-pip install -r requirements.txt
+- **Method**: POST
+- **Description**: Generates interview dialogues based on the provided prompt.
+- **Input**: `{ "prompt": "<Interview prompt>" }`
+- **Output**: A conversation in German.
 
-Run the application:
+### `/models`
 
-uvicorn main:app --reload
+- **Method**: POST
+- **Description**: Lists available models offered by Groq.
+- **Input**: `{ "action": "list_models" }`
+- **Output**: A list of model IDs and descriptions.
 
-Accessing the API
+### `/search`
 
-The API will be available at http://127.0.0.1:8000. Use tools like Postman or cURL to test endpoints.
+- **Method**: POST
+- **Description**: Responds to general queries with contextual understanding.
+- **Input**: `{ "query": "<Search query>" }`
+- **Output**: A contextual response.
 
-Endpoints
-
-/conjugate
-
-Method: POST
-
-Description: Provides verb conjugations and examples.
-
-Input: { "verb": "<German verb>" }
-
-Output: Detailed conjugations and usage examples.
-
-/interview
-
-Method: POST
-
-Description: Generates interview dialogues based on the provided prompt.
-
-Input: { "prompt": "<Interview prompt>" }
-
-Output: A conversation in German.
-
-/search
-
-Method: POST
-
-Description: Responds to general queries with contextual understanding.
-
-Input: { "query": "<Search query>" }
-
-Output: A contextual response.
-
-Contributing
+## Contributing
 
 Contributions are welcome! Feel free to fork this repository and submit a pull request.
 
-Reporting Issues
 
-If you encounter any issues, please report them on the GitHub Issues page.
+## Related Application
 
-License
+I have built an application that communicates with this backend using Flutter. You can find it at this [GitHub link](https://github.com/KessieBismark/lernen.git).
 
-This project is licensed under the MIT License. See the LICENSE file for details.
 
-Acknowledgements
 
-Built with FastAPI
+## Acknowledgements
 
-AI powered by Groq
+- Built with [FastAPI](https://fastapi.tiangolo.com/)
+- AI powered by [Groq](https://groq.com/)
+
