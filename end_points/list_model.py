@@ -10,7 +10,7 @@ router = APIRouter(
 )
 
 
-@router.get("/", status_code=status.HTTP_200_OK)
+@router.get("/model-list/", status_code=status.HTTP_200_OK)
 async def ai_models():
     try:
         client = Groq(
