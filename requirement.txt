@@ -5,3 +5,4 @@ pydantic-settings
 groq
 langchain
 langchain-groq
+beautifulsoup4

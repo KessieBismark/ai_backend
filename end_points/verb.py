@@ -1,7 +1,8 @@
-from fastapi import status, HTTPException, APIRouter
+from fastapi import status, APIRouter
 from pydantic import BaseModel, ValidationError
-from ..ai_script.prompts import verb_prompt
-from ..ai_script.chain import chain_prompt
+from ai_script.prompts import verb_prompt
+from ai_script.chain import chain_prompt
+from langchain_core.output_parsers import JsonOutputParser
 
 
 router = APIRouter(
@@ -14,23 +15,46 @@ class VerbResponse(BaseModel):
     data_forms: dict
     example_sentences: dict
 
-@router.post("/{verb}", status_code=status.HTTP_200_OK)
-async def verb_prompt_api(verb: str,model:str):
-    try:
-        result = chain_prompt(verb_prompt, verb, 2024,model.strip())
 
-        try:
-            validated_result = VerbResponse(**result)
-            return validated_result
-        except ValidationError as val_error:
-            raise HTTPException(
-                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                detail=str(val_error)
-            )
+
+class DataModel(BaseModel):
+    verb:str
+    model:str
     
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, 
-            detail=f"Error processing verb: {str(e)}"
-        )
-        
+# @router.post("/verb_query/", status_code=status.HTTP_200_OK)
+# async def verb_prompt_api(response:DataModel):
+#     try:
+#         result = chain_prompt(verb_prompt,response. verb, 2024,response. model.strip())
+#         try:
+#             validated_result = VerbResponse(**result)
+#             return validated_result
+#         except ValidationError as val_error:
+#             raise HTTPException(
+#                 status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+#                 detail=str(val_error)
+#             )
+#     except Exception as e:
+#         raise HTTPException(
+#             status_code=status.HTTP_400_BAD_REQUEST, 
+#             detail=f"Error processing verb: {str(e)}"
+#         )
+   
+   
+@router.post("/verb_query/", status_code=status.HTTP_200_OK )
+async def verb_prompt_api(response:DataModel, max_retries: int = 4):
+  
+    attempt = 0
+
+    while attempt < max_retries:
+        attempt += 1
+        try:
+            result = chain_prompt(verb_prompt, response.verb, 2024, response.model.strip())
+            print(result)
+            validated_result = VerbResponse(**result) 
+            return validated_result
+
+        except ValidationError as val_error:
+           continue
+       
+        except Exception as e:
+            print(f"Error on attempt {attempt}: {e}")

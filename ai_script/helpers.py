@@ -1,5 +1,5 @@
 from langchain_groq import ChatGroq
-from ..helpers.config import settings
+from helpers.config import settings
 
 
 

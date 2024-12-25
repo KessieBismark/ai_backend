@@ -1,8 +1,10 @@
-from langchain.chains import LLMChain
+from langchain.chains import ConversationChain,LLMChain
 from . import helpers
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_groq import ChatGroq
-from ..helpers.config import settings
+from helpers.config import settings
+
+
 
 def chain_prompt(prompt,data,length:int, model:str):
     json_parser = JsonOutputParser()
@@ -25,6 +27,20 @@ def chain_conversation(model:str, prompt, memory):
             model_name=model
     )
     chain = LLMChain(llm=groq_chat,prompt=prompt,memory=memory)
+
+
     # chain = prompt | groq_chat | memory
+
+    return chain
+
+def chain_quick_prompt(model:str, prompt, ):
+  
+    groq_chat = ChatGroq(
+            groq_api_key=settings.groq_api_key, 
+            model_name=model
+    )
+
+
+    chain = prompt | groq_chat 
 
     return chain
