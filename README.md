@@ -99,7 +99,7 @@ The **General Search** feature provides answers to a wide range of queries, cons
 1. Clone this repository:
    ```bash
    git clone https://github.com/KessieBismark/ai_backend.git
-   cd german-ai-api
+   cd <application folder>
    ```
 2. Create and activate a virtual environment:
    ```bash
