@@ -1,6 +1,6 @@
 # German Language Learning AI API
 
-Welcome to the **German Language Learning AI API**! This API is designed to assist users in learning German through interactive and personalized features powered by **FastAPI** and **Groq AI**. It offers tools for verb conjugation, interview preparation, and general knowledge exploration, all tailored to enhance your German language skills.
+Welcome to the **German Language Learning AI API**! This API is designed to assist users in learning German through interactive and personalized features powered by **FastAPI** and **Groq AI**. It offers tools for verb conjugation, interview preparation, model exploration, and general knowledge exploration, all tailored to enhance your German language skills.
 
 ## Features
 
@@ -64,7 +64,31 @@ The **Interview Assistant** simulates realistic German-language interview conver
 }
 ```
 
-### 3. General Search
+### 3. Model Exploration
+
+The **Model Section** allows users to explore and query the models offered by Groq. Users can retrieve model IDs and use them for further interactions in the **General Search** feature.
+
+- **Input**: A query to list available models.
+- **Output**: A list of models with their corresponding IDs.
+
+#### Example Request:
+```json
+{
+  "action": "list_models"
+}
+```
+
+#### Example Response:
+```json
+{
+  "models": [
+    { "id": "model-123", "description": "German language model v1" },
+    { "id": "model-456", "description": "Advanced German conversational model" }
+  ]
+}
+```
+
+### 4. General Search
 
 The **General Search** feature provides answers to a wide range of queries, considering context from previous conversations to provide more accurate and tailored responses.
 
@@ -99,7 +123,7 @@ The **General Search** feature provides answers to a wide range of queries, cons
 1. Clone this repository:
    ```bash
    git clone https://github.com/KessieBismark/ai_backend.git
-   cd <application folder>
+   cd <your application folder>
    ```
 2. Create and activate a virtual environment:
    ```bash
@@ -138,6 +162,13 @@ The API will be available at `http://127.0.0.1:8000`. Use tools like Postman or 
 - **Description**: Generates interview dialogues based on the provided prompt.
 - **Input**: `{ "prompt": "<Interview prompt>" }`
 - **Output**: A conversation in German.
+
+### `/models`
+
+- **Method**: POST
+- **Description**: Lists available models offered by Groq.
+- **Input**: `{ "action": "list_models" }`
+- **Output**: A list of model IDs and descriptions.
 
 ### `/search`
 
