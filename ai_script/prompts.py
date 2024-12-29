@@ -222,3 +222,79 @@ Current query: {query}
     """
     )
     return prompt
+
+
+def german_quiz_prompt(query: str):
+    prompt = PromptTemplate(
+        input_variables=["query"],
+        template="""
+        Generate 10 multiple-choice questions in German suitable for a {{query}} learner. 
+
+        ### Requirements:
+        Each question must:
+        1. Include a German sentence or question with one or two blanks indicated as "____".
+        2. Provide **four distinct answer options** per blank. If two blanks are present, combine answers with "und" in both `correct_answer` and `options`.
+        3. Ensure **one of the options matches the `correct_answer` exactly**.
+        4. Include an English translation of the sentence with the correct answer(s) filled in.
+        5. Include a detailed explanation in English, covering grammar, vocabulary, and sentence structure (e.g., Subject-Verb-Object structure, verb placement, adjective usage).How similar sentences can be constructed.
+
+
+        ### JSON Format:
+        Return the questions in this structured JSON format:
+        {{
+            "questions": [
+                {{
+                     "question": "Ich gehe ____ jeden Sonntag.",
+                        "options": [
+                            "in die Schule",
+                            "zur Arbeit",
+                            "zur Kirche",
+                            "in den Park"
+                        ],
+                        "correct_answer": "zur Kirche",
+                        "english_translation": "I go to church every Sunday.",
+                        "english_explanation": "The correct answer is 'zur Kirche' because 'gehe' (to go) is a verb that typically comes second in a German main clause. 'zur Kirche' is a contraction of 'zu der Kirche,' following the dative case required by the preposition 'zu' when referring to locations. German sentences often follow the Subject-Verb-Object structure. For example, 'Ich (subject) gehe (verb) zur Kirche (object).' Here, the verb 'gehe' is in the second position, and 'zur Kirche' modifies the direction of the action."
+                }},
+                ...
+            ]
+        }}
+
+        ### Self-Validation Instructions:
+        After generating the questions:
+        1. **Revalidate Each Question:** For every question, check:
+           - That `correct_answer` matches exactly one of the provided `options`.
+           - That the `english_translation` aligns with the `correct_answer`.
+           - That the `english_explanation` correctly justifies the `correct_answer` and matches the context.
+        2. **Flag Inconsistencies:** If any question fails these checks, automatically regenerate it until all questions are consistent.
+
+        ### Example Output:
+        {{
+            "questions": [
+                {{
+                      "question": "Ich gehe ____ jeden Sonntag.",
+                        "options": [
+                            "in die Schule",
+                            "zur Arbeit",
+                            "zur Kirche",
+                            "in den Park"
+                        ],
+                        "correct_answer": "zur Kirche",
+                        "english_translation": "I go to church every Sunday.",
+                        "english_explanation": "The correct answer is 'zur Kirche' because 'gehe' (to go) is a verb that typically comes second in a German main clause. 'zur Kirche' is a contraction of 'zu der Kirche,' following the dative case required by the preposition 'zu' when referring to locations. German sentences often follow the Subject-Verb-Object structure. For example, 'Ich (subject) gehe (verb) zur Kirche (object).' Here, the verb 'gehe' is in the second position, and 'zur Kirche' modifies the direction of the action."
+                            }},
+                            ...
+            ]
+        }}
+
+        ### Additional Notes:
+        - **Consistency is Critical:** Ensure the `correct_answer`, `options`, and `english_translation` always align. Discard and regenerate inconsistent questions automatically.
+        - For two blanks, ensure that both parts of the answer are included in a single option, e.g., "Papiere und Reisebekleidung".
+        
+        ### Examples of Question Themes:
+        - Everyday activities (e.g., going to school, shopping, hobbies, work, making friends).
+        - Common verbs, noun cases, and prepositions (e.g., 'gehen', 'sein', 'haben').
+        - Practical contexts (e.g., directions, introductions, asking for help, work).
+
+        """
+    )
+    return prompt

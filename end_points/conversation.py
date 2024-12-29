@@ -1,8 +1,8 @@
 from fastapi import  status, APIRouter
-from ai_script.chain import chain_conversation
+from ..ai_script.chain import chain_conversation
 from langchain.memory import ConversationBufferMemory
 from langchain.schema import HumanMessage
-from ai_script.prompts import general_search_prompt
+from ..ai_script.prompts import general_search_prompt
 from pydantic import BaseModel
 from fastapi.responses import HTMLResponse
 from typing import Optional, Dict

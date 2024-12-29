@@ -1,6 +1,6 @@
 from fastapi import  status, HTTPException, APIRouter
 from groq import Groq
-from helpers.config import settings
+from ..helpers.config import settings
 
 
 

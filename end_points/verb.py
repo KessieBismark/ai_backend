@@ -1,7 +1,7 @@
 from fastapi import status, APIRouter
 from pydantic import BaseModel, ValidationError
-from ai_script.prompts import verb_prompt
-from ai_script.chain import chain_prompt
+from ..ai_script.prompts import verb_prompt
+from ..ai_script.chain import chain_prompt
 from langchain_core.output_parsers import JsonOutputParser
 
 
@@ -21,24 +21,7 @@ class DataModel(BaseModel):
     verb:str
     model:str
     
-# @router.post("/verb_query/", status_code=status.HTTP_200_OK)
-# async def verb_prompt_api(response:DataModel):
-#     try:
-#         result = chain_prompt(verb_prompt,response. verb, 2024,response. model.strip())
-#         try:
-#             validated_result = VerbResponse(**result)
-#             return validated_result
-#         except ValidationError as val_error:
-#             raise HTTPException(
-#                 status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-#                 detail=str(val_error)
-#             )
-#     except Exception as e:
-#         raise HTTPException(
-#             status_code=status.HTTP_400_BAD_REQUEST, 
-#             detail=f"Error processing verb: {str(e)}"
-#         )
-   
+
    
 @router.post("/verb_query/", status_code=status.HTTP_200_OK )
 async def verb_prompt_api(response:DataModel, max_retries: int = 4):
@@ -49,7 +32,6 @@ async def verb_prompt_api(response:DataModel, max_retries: int = 4):
         attempt += 1
         try:
             result = chain_prompt(verb_prompt, response.verb, 2024, response.model.strip())
-            print(result)
             validated_result = VerbResponse(**result) 
             return validated_result
 

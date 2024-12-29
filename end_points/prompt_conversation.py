@@ -1,12 +1,12 @@
 from fastapi import  status, HTTPException, APIRouter
 from pydantic import BaseModel, ValidationError
 from typing import List
-from ai_script.prompts import conversation_prompt,conversation_continuation_prompt
-from ai_script.chain import chain_prompt
+from ..ai_script.prompts import conversation_prompt,conversation_continuation_prompt
+from ..ai_script.chain import chain_prompt
 from typing import Optional, Dict
 from langchain.schema import HumanMessage, AIMessage
 from langchain.memory import ConversationBufferMemory
-from ai_script.chain import chain_conversation
+from ..ai_script.chain import chain_conversation
 
 router = APIRouter(
     prefix="/prompt_conversation",

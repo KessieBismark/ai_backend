@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from end_points import prompt_conversation, verb,list_model,conversation
+from .end_points import prompt_conversation, verb,list_model,conversation,quiz
 
 app = FastAPI(
         title = "LLM API ENDPOINT"
@@ -18,6 +18,7 @@ app.add_middleware(
 
 
 app.include_router(verb.router)
+app.include_router(quiz.router)
 app.include_router(prompt_conversation.router)
 app.include_router(list_model.router)
 app.include_router(conversation.router)
