@@ -11,7 +11,7 @@ router = APIRouter(
 )
 
 class VerbResponse(BaseModel):
-    german_data: str
+    german_data: dict
     data_forms: dict
     example_sentences: dict
 
@@ -36,6 +36,7 @@ async def verb_prompt_api(response:DataModel, max_retries: int = 4):
             return validated_result
 
         except ValidationError as val_error:
+            # print(f"Error on attempt {attempt}: {val_error}")
            continue
        
         except Exception as e:

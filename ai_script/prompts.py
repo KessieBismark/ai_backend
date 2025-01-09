@@ -44,13 +44,13 @@ def verb_prompt(data:str):
                 "past_participle": "Past participle form"
             }},
             "example_sentences": {{
-                "present": "Example sentence in present tense",
-                "present_continuous": "Example sentence in present continuous",
-                "future": "Example sentence in future tense",
-                "past": "Example sentence in past tense",
-                "past_participle": "Example sentence using past participle",
-                "Dative": "Example sentence using dative",
-                "Accusative": "Example sentence using accusative"
+                "present": "Example sentence in present tense. (english translation)",
+                "present_continuous": "Example sentence in present continuous. (english translation)",
+                "future": "Example sentence in future tense. (english translation)",
+                "past": "Example sentence in past tense. (english translation)",
+                "past_participle": "Example sentence using past participle (english translation)",
+                "Dative": "Example sentence using dative. (english translation)",
+                "Accusative": "Example sentence using accusative. (english translation)"
 
 
             }}
