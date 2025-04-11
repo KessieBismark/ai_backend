@@ -23,7 +23,7 @@ class ConversationResponse(BaseModel):
     
 class DataModel(BaseModel):
     data:str
-    model:str
+    model:Optional[str] =None
 
 @router.post("/interview/", status_code=status.HTTP_200_OK)
 async def conversation_prompt_api(response:DataModel, max_retries: int = 4):

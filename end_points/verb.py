@@ -1,3 +1,4 @@
+from typing import Optional
 from fastapi import status, APIRouter
 from pydantic import BaseModel, ValidationError
 from ..ai_script.prompts import verb_prompt
@@ -19,7 +20,7 @@ class VerbResponse(BaseModel):
 
 class DataModel(BaseModel):
     verb:str
-    model:str
+    model:Optional[str] =None
     
 
    

@@ -3,7 +3,7 @@ from pydantic import BaseModel, ValidationError
 from ..ai_script.prompts import german_quiz_prompt
 from ..ai_script.chain import chain_prompt
 from langchain_core.output_parsers import JsonOutputParser
-from typing import List, Union
+from typing import List, Optional, Union
 
 
 router = APIRouter(
@@ -22,7 +22,7 @@ class QuizResponse(BaseModel):
     questions: List[QuizQuestion]  # A list of quiz questions
 
 class DataModel(BaseModel):
-    model:str
+    model:Optional[str] =None
     level:str
     
 

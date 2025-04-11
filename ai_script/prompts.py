@@ -66,7 +66,7 @@ def conversation_prompt(data:str):
     prompt = PromptTemplate(
     input_variables=["data"],
     template = """
-         Provide a bilingual conversation based on the input provided. The response should include both the German and English translations for each line of dialogue and most have at least 30 conversations. Structure the response as a JSON object.
+         Provide a bilingual conversation scenario based on the input provided. The response should include both the German and English translations for each line of dialogue and most have at least 30 conversations. Structure the response as a JSON object.
 
     Input: "{data}"
 
@@ -74,12 +74,12 @@ def conversation_prompt(data:str):
     {{
         "conversation": [
             {{
-                "speaker": "Interviewer",
+                "speaker 1": " 1",
                 "german": "German translation of the first line of '{data}'",
                 "english": "English translation of the first line of '{data}'"
             }},
             {{
-                "speaker": "Interviewee",
+                "speaker 2": "Interviewee",
                 "german": "German translation of the second line of '{data}'",
                 "english": "English translation of the second line of '{data}'"
             }}

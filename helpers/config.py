@@ -18,6 +18,7 @@ class Settings(BaseSettings):
         "extra": "ignore"
     }
     
+    groq_model_name: str = "llama3-70b-8192"  # Default model name
     def __init__(self, **data):
         # Explicitly get the environment variable
         env_api_key = os.getenv('GROQ_API_KEY')

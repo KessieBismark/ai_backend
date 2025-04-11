@@ -22,7 +22,7 @@ class MessageItem(BaseModel):
     
 class DataModel(BaseModel):
     data:str
-    model:str
+    model:Optional[str] =None
     chat_memory: Optional[dict] = None
 
 def create_memory_from_dict(chat_memory: Dict) -> ConversationBufferMemory:

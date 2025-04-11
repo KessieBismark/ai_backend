@@ -3,7 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from .end_points import prompt_conversation, verb,list_model,conversation,quiz
 
 app = FastAPI(
-        title = "LLM API ENDPOINT"
+        title = "LLM API ENDPOINT",
+        version = "0.0.1",
 )
 
 origins = ["*"]

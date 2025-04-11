@@ -1,3 +1,4 @@
+from typing import Optional
 from langchain.chains import LLMChain
 from . import helpers
 from langchain_core.output_parsers import JsonOutputParser
@@ -6,9 +7,12 @@ from ..helpers.config import settings
 
 
 
-def chain_prompt(prompt,data,length:int, model:str):
+def chain_prompt(prompt,data,length:int, model:Optional[str] = None):
     json_parser = JsonOutputParser()
-    
+    model = model.strip() if model and model.strip() else None
+
+    if model is None:
+        model = settings.groq_model_name
     chain = prompt | helpers.llm_function(length,model) | json_parser
     
     try:
